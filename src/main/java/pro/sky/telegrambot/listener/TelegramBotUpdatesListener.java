@@ -25,8 +25,12 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
     private Logger logger = LoggerFactory.getLogger(TelegramBotUpdatesListener.class);
 
     //private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-    @Autowired
+
     private NotificationTaskRepository repository;
+
+    public TelegramBotUpdatesListener(NotificationTaskRepository repository) {
+        this.repository = repository;
+    }
 
     @Autowired
     private TelegramBot telegramBot;
@@ -50,7 +54,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                 SendMessage message = new SendMessage(chatId, String.format(
                         "Добро пожаловать в бот-напоминалку!\n" +
                                 "%s, введи запрос в формате:\n" +
-                                "дд.мм.гггг ЧЧ:ММ напомни о встрече с мамой",
+                                "дд.мм.гггг ЧЧ:ММ напомни о встрече",
                         nickName));
                 SendResponse response = telegramBot.execute(message);
             }
